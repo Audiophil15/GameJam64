@@ -10,14 +10,28 @@ func _ready():
 	 [0.700, 0.000, 0.300, 0.000],
 	 [0.300, 0.300, 0.300, 0.100]]
 	var x = 0
+	var cellpos = Vector2i(15,15)
 	for i in range(25) :
-		x = weightedChoice(space, P[0])
-		print(x)
-		
-	
-	
-	
-	#set_cell(0, Vector2i(0,0), 0, Vector2i(1,2))
+		x = weightedChoice(space, P[x])
+		if  x == 0 :
+			set_cell(0, cellpos, 0, Vector2i(1,0))
+			cellpos.x += 1
+		if x == 1 :
+			set_cell(0, cellpos-Vector2i(0,1), 0, Vector2i(0,0))
+			set_cell(0, cellpos, 0, Vector2i(4,1))
+			cellpos.x+=1
+			cellpos.y-=1
+		if x == 2 :
+			set_cell(0, cellpos, 0, Vector2i(2,0))
+			set_cell(0, cellpos+Vector2i(0,1), 0, Vector2i(3,1))
+			cellpos.x+=1
+			cellpos.y+=1
+		if x == 3 :
+			cellpos.x+=1
+			set_cell(0, cellpos, 0, Vector2i(1,0))
+			cellpos.x += 1
+			
+			
 	pass # Replace with function body.
 
 func sum(array) :
