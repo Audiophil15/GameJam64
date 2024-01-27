@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
 @export var speed = 150
-@export var jump_speed = -250
+@export var jump_speed = -275
 @export var gravity = 1000
-var initialSpeed = 0
+var initialSpeedx = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,13 +16,15 @@ func _process(delta):
 
 	# Input affects x axis only
 	if is_on_floor() :
-		initialSpeed = Input.get_axis("ui_left", "ui_right") * speed
-		velocity.x = initialSpeed
+		initialSpeedx = Input.get_axis("ui_left", "ui_right") * speed
+		velocity.x = initialSpeedx
 	else :
-		if initialSpeed > 0 :
-			velocity.x = initialSpeed - int(Input.is_action_pressed("ui_left")) * speed/1.5
-		if initialSpeed < 0 :
-			velocity.x = initialSpeed + int(Input.is_action_pressed("ui_right")) * speed/1.5
+		if initialSpeedx == 0 :
+			initialSpeedx = Input.get_axis("ui_left", "ui_right") * speed/1.5
+		if initialSpeedx > 0 :
+			velocity.x = initialSpeedx - int(Input.is_action_pressed("ui_left")) * speed/1.5
+		if initialSpeedx < 0 :
+			velocity.x = initialSpeedx + int(Input.is_action_pressed("ui_right")) * speed/1.5
 
 	move_and_slide()
 
