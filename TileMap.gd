@@ -13,7 +13,7 @@ var P = [[0.600, 0.255, 0.095, 0.050],
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	seed(1)
+	randomize()
 	var levelTable = generateTileTable(80,50)
 	tableToTiles(levelTable)
 
@@ -64,25 +64,25 @@ func generateTileTable(sizex, sizey) :
 			cellpos.x += xshift
 			if xshift == 2 :
 				cellpos.y += randi_range(-1,1)
-	for col in table :
-		var l = ""
-		for v in col :
-			if v == -1 :
-				l+= " "
-			else : 
-				l += str(v)
-		print(l)
+	#for col in table :
+		#var l = ""
+		#for v in col :
+			#if v == -1 :
+				#l+= " "
+			#else : 
+				#l += str(v)
+		#print(l)
 		
 	for i in range(sizex) :
 		for j in range(sizey) :
 			if table[i][j] == 3 :
 				table[i][j] = 0
-			if table[i][j] == 0 and table[i+1][j] == -1 and table[i-1][j] != -1 :
+			if table[i][j] == 0 and (i != sizex-1 and table[i+1][j] == -1) and (i == 0 or table[i-1][j] != -1) :
 				# Case of a cliff before a gap
 				table[i][j] = 2
 				for k in range(j+1, sizey) :
 					table[i][k] = 4
-			if table[i][j] == 0 and table[i-1][j] == -1 and table[i+1][j] != -1 :
+			if table[i][j] == 0 and (i != 0 and table[i-1][j] == -1) and (i == sizex-1 or table[i+1][j] != -1) :
 				# Case of a cliff after a gap
 				table[i][j] = 1
 				for k in range(j+1, sizey) :
