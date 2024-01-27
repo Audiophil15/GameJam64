@@ -8,9 +8,11 @@
 script = ExtResource("1_sn66n")
 
 [node name="Player" parent="." instance=ExtResource("3_xwny8")]
+z_index = 50
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+limit_left = 0
 script = ExtResource("4_besjp")
 
 [node name="Button" type="Button" parent="Camera"]

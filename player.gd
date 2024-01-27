@@ -16,15 +16,15 @@ func _process(delta):
 
 	# Input affects x axis only
 	if is_on_floor() :
-		initialSpeedx = Input.get_axis("ui_left", "ui_right") * speed
+		initialSpeedx = Input.get_axis("left", "right") * speed
 		velocity.x = initialSpeedx
 	else :
 		if initialSpeedx == 0 :
-			initialSpeedx = Input.get_axis("ui_left", "ui_right") * speed/1.5
+			initialSpeedx = Input.get_axis("left", "right") * speed/1.5
 		if initialSpeedx > 0 :
-			velocity.x = initialSpeedx - int(Input.is_action_pressed("ui_left")) * speed/1.5
+			velocity.x = initialSpeedx - int(Input.is_action_pressed("left")) * speed/1.5
 		if initialSpeedx < 0 :
-			velocity.x = initialSpeedx + int(Input.is_action_pressed("ui_right")) * speed/1.5
+			velocity.x = initialSpeedx + int(Input.is_action_pressed("right")) * speed/1.5
 
 	move_and_slide()
 

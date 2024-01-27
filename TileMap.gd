@@ -16,6 +16,9 @@ var mapheight
 var maxheight
 var minheight
 var initialheight
+
+var table = []
+var bgtable = []
 	
 func _ready():
 	seed(1)
@@ -43,12 +46,13 @@ func weightedChoice(valuesspace, weights) :
 func generateTileTable(sizex, sizey) :
 	var cellpos = Vector2(1,int(sizey/2))
 	var x = 0
-	var table = []
 	
 	for i in range(sizex) :
 		table.append([])
+		bgtable.append([])
 		for j in range(sizey) :
 			table[i].append(-1)
+			bgtable[i].append(-1)
 
 	table[0][cellpos.y] = 0
 	while cellpos.x < sizex :
@@ -87,6 +91,13 @@ func generateTileTable(sizex, sizey) :
 				table[i][j] = 1
 				for k in range(j+1, sizey) :
 					table[i][k] = 5
+					
+	for i in range(sizex) :
+		var bg = 11 # 11 clear, 12 dark
+		for j in range(sizey) :
+			if table[i][j] != -1 and table[i][j] != 3 :
+				bg = 12
+			bgtable[i][j] = bg
 
 	return table
 
@@ -104,9 +115,13 @@ func setExtremeHeights(table) :
 				maxheight = min(maxheight, j)
 				minheight = max(minheight, j)
 	
+	minheight = $PlatformsTiles.map_to_local(Vector2i(0, minheight)).y
+	maxheight = $PlatformsTiles.map_to_local(Vector2i(0, maxheight)).y
+	
 	for j in range(lines) :
-		if table[0][j] != -1 :
-			initialheight = $TileMap.map_to_local(Vector2i(0, j))
+		#print(table[0][j])
+		if table[0][j] == 0 :
+			initialheight = $PlatformsTiles.map_to_local(Vector2i(0, j))
 
 func tableToTiles(table) :
 	var cols = len(table)
@@ -115,29 +130,36 @@ func tableToTiles(table) :
 		for j in range(lines) :
 			match table[i][j] :
 				0 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(1, 0))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(1, 0))
 				1 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(0, 0))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(0, 0))
 				2 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(2, 0))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(2, 0))
 				3 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(6, 3))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(6, 3))
 				4 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(2, 1))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(2, 1))
 				5 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(0, 1))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(0, 1))
 				41 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(4, 1))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(4, 1))
 				42 :
-					$TileMap.set_cell(0, Vector2i(i, j), 0, Vector2i(3, 1))
+					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(3, 1))
+				_ :
+					pass
+			match bgtable[i][j] :
+				11 :
+					$BackgroundTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(11, 0))
+				12 :
+					$BackgroundTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(11, 3))
 				_ :
 					pass
 
 
 
 func initialize(width, height) :
-	mapwidth = $TileMap.map_to_local(Vector2i(width, height)).x
-	mapheight = $TileMap.map_to_local(Vector2i(width, height)).y
+	mapwidth = $PlatformsTiles.map_to_local(Vector2i(width-1, height)).x # Width-1 car nombre de tuiles = n alors indices jusqu a n-1
+	mapheight = $PlatformsTiles.map_to_local(Vector2i(width-1, height)).y # Width-1 car nombre de tuiles = n alors indices jusqu a n-1
 	#print("dim : ",mapwidth,"/",mapheight)
 	var levelTable = generateTileTable(width,height)
 	tableToTiles(levelTable)

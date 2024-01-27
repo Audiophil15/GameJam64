@@ -2,28 +2,40 @@ extends Node2D
 
 var packedmapscene
 var levelmap
+var screensize
+var cameraXMin 
+var cameraXMax 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	screensize = get_viewport_rect().size
+	#screensize = $".".get_size()
 	packedmapscene = preload("res://LevelMap.tscn")
-	#add_child(map.instantiate())
-	initMap(packedmapscene, 80,50)
-	#print(levelmap.initialheight, to_global(levelmap.initialheight))
+	initMap(packedmapscene, 160,50)
 	initPlayer(levelmap)
 	initBottom(levelmap)
 	pass # Replace with function body.
 
+	#cameraXMin = $Camera.zoom.x*screensize.x #screensize.x*$Camera.zoom.x/2
+	#cameraXMax = screensize.x-cameraXMin
+	#print(cameraXMin, cameraXMax)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#clamp($Camera.position.x, )
+	$Player.position.x = clamp($Player.position.x, 0, levelmap.mapwidth)
+	$Camera.position = $Player.position-Vector2(0,35)
+	#$Camera.position.x = clamp($Camera.position.x, cameraXMin, cameraXMax)
+	#$Camera.position.y = clamp($Camera.position.y, 0, levelmap.mapheight)
 	pass
 
 func initMap(packedSceneMap:PackedScene, width:int, height:int) :
 	levelmap = packedSceneMap.instantiate()
 	add_child(levelmap)
 	levelmap.initialize(width, height)
+	$Camera.limit_left = 0
+	$Camera.limit_right = levelmap.mapwidth+8
+	$Camera.limit_bottom = levelmap.minheight+50
 	#packedmapscene = preload("res://LevelMap.tscn")
 	
 func initPlayer(mapNode) :
