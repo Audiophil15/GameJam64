@@ -21,7 +21,7 @@ var table = []
 var bgtable = []
 	
 func _ready():
-	seed(1)
+	#seed(1)
 	#initialize(80,50)
 	pass
 
@@ -149,13 +149,11 @@ func tableToTiles(table) :
 					pass
 			match bgtable[i][j] :
 				11 :
-					$BackgroundTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(11, 0))
+					$BackgroundTiles.set_cell(0, Vector2i(i, j), 2, Vector2i(6,21))
 				12 :
 					$BackgroundTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(11, 3))
 				_ :
 					pass
-
-
 
 func initialize(width, height) :
 	mapwidth = $PlatformsTiles.map_to_local(Vector2i(width-1, height)).x # Width-1 car nombre de tuiles = n alors indices jusqu a n-1
