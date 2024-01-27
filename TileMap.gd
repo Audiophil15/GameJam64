@@ -3,15 +3,15 @@ extends TileMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	seed(0)
+	seed(1)
 	var space = [0,1,2,3]
 	var P = [[0.600, 0.175, 0.175, 0.050],
 	 [0.700, 0.300, 0.000, 0.000],
 	 [0.700, 0.000, 0.300, 0.000],
-	 [0.300, 0.300, 0.300, 0.100]]
+	 [0.700, 0.000, 0.000, 0.300]]
 	var x = 0
 	var cellpos = Vector2i(15,15)
-	for i in range(25) :
+	for i in range(80) :
 		x = weightedChoice(space, P[x])
 		if  x == 0 :
 			set_cell(0, cellpos, 0, Vector2i(1,0))
@@ -29,7 +29,10 @@ func _ready():
 		if x == 3 :
 			cellpos.x+=1
 			set_cell(0, cellpos, 0, Vector2i(1,0))
-			cellpos.x += 1
+			var xshift = randi_range(1, 2)
+			cellpos.x += xshift
+			if xshift == 2 :
+				cellpos.y += randi_range(-1,1)
 			
 			
 	pass # Replace with function body.
