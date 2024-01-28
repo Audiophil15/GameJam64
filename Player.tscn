@@ -537,9 +537,7 @@ shape = SubResource("RectangleShape2D_w6b8i")
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_wvldt")
-animation = &"Death"
-frame = 10
-frame_progress = 1.0
+animation = &"Idle"
 
 [node name="SwordHitbox" type="Area2D" parent="." groups=["Knight Hitbox"]]
 collision_layer = 2

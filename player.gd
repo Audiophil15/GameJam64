@@ -35,20 +35,24 @@ func _process(delta):
 	#print(life, " ", ishurt)
 
 	# Input affects x axis only
-	if is_on_floor() and not animated:
+	if is_on_floor() and not animated :
 		if not bool(attacking) and not ishurt :
 			initialSpeedx = Input.get_axis("left", "right") * speed
 			velocity.x = initialSpeedx
 	else :
-		if initialSpeedx == 0 :
-			initialSpeedx = Input.get_axis("left", "right") * speed/1.5
+		if not animated :
+			if initialSpeedx == 0 :
+				initialSpeedx = Input.get_axis("left", "right") * speed/1.5
 		if initialSpeedx > 0 :
-			velocity.x = initialSpeedx - int(Input.is_action_pressed("left")) * speed/1.5
+			velocity.x = initialSpeedx - int(Input.is_action_pressed("left") and not animated) * speed/1.5
 		if initialSpeedx < 0 :
-			velocity.x = initialSpeedx + int(Input.is_action_pressed("right")) * speed/1.5
+			velocity.x = initialSpeedx + int(Input.is_action_pressed("right") and not animated) * speed/1.5
 	
 	if rolling :
-		velocity.x = sign($Animation.scale.x)*speed/1.2
+		velocity.x = sign($Animation.scale.x)*speed*1.2
+
+	if life <= 0 :
+		velocity.x = 0
 
 	move_and_slide()
 
@@ -56,12 +60,12 @@ func _process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_speed
 		
-	if attacking < 2 and not ishurt and Input.is_action_just_pressed("attack") :
+	if attacking < 2 and not ishurt and Input.is_action_just_pressed("attack") and not animated :
 		$LightAttackSound.stop()
 		$StrongAttackSound.stop()
 		attacking += 1
 		
-	if Input.is_action_just_pressed("Roll") and $Animation.animation != "Combo" :
+	if Input.is_action_just_pressed("Roll") and $Animation.animation != "Combo" and not animated :
 		rolling = true
 		ishurt = false
 		$Hurtbox/hurtbox.disabled = true

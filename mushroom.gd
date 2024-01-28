@@ -9,7 +9,7 @@ func _physics_process(delta):
 	$Hitbox/Left.visible = not $Hitbox/Left.disabled
 	$Hitbox/Right.visible = not $Hitbox/Right.disabled
 
-	distancetoplayer = $"/root/Globals".playerpos.x-position.x
+	distancetoplayer = ($"/root/Globals".playerpos-position).length()
 	if life <= 0 :
 		if not $DeathSound.playing :
 			$DeathSound.play()
@@ -22,7 +22,7 @@ func _physics_process(delta):
 			$Animation.play("Idle")
 
 		if followPlayer and not (attacking or ishurt) :
-				var direction = sign(distancetoplayer)
+				var direction = sign($"/root/Globals".playerpos.x-position.x)
 				velocity.x = direction*speed
 				$Animation.scale.x = direction
 		else :

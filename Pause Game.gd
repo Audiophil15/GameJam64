@@ -17,8 +17,21 @@ func _process(delta):
 			#$Control/AnimationPlayer.play("Depause")
 			$"Main Scene/Camera/Pause Menu".leavepause()
 		
-	if not $Music.playing :
-		$Music.play()
+	if $"Main Scene".levelstotop == 3:
+		if not $Music.playing :
+			$Music.play()
+		$Music2.stop()
+		$Music3.stop()
+	elif $"Main Scene".levelstotop == 2:
+		if not $Music2.playing :
+			$Music2.play()
+		$Music.stop()
+		$Music3.stop()
+	elif $"Main Scene".levelstotop == 1:
+		if not $Music3.playing :
+			$Music3.play()
+		$Music2.stop()
+		$Music.stop()
 	pass
 
 

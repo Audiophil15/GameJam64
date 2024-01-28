@@ -76,7 +76,7 @@ func generateTileTable(sizex, sizey) :
 			cellpos.x += xshift
 			#if xshift > 1 :
 			cellpos.y += randi_range(-1,1)
-	for i in range(5) :
+	while cellpos.x < sizex :
 		table[cellpos.x][cellpos.y] = 0
 		cellpos.x += 1
 

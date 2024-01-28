@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfjk6dwi8rw6w"]
+[gd_scene load_steps=12 format=3 uid="uid://bfjk6dwi8rw6w"]
 
 [ext_resource type="Script" path="res://Pause Game.gd" id="1_fcrnf"]
 [ext_resource type="Script" path="res://Main Scene.gd" id="1_sn66n"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c8kcc4xlu8daj" path="res://faders.tscn" id="4_oqku3"]
 [ext_resource type="PackedScene" uid="uid://1c34ewawcg53" path="res://Pause Menu.tscn" id="6_75ar2"]
 [ext_resource type="AudioStream" uid="uid://cfsn8k6w55b77" path="res://src/Audio/Music/0-2.mp3" id="7_wbtrt"]
+[ext_resource type="AudioStream" uid="uid://bfwlosxgwguos" path="res://src/Audio/Music/0-1Ambient.mp3" id="8_8ya23"]
 
 [sub_resource type="Animation" id="Animation_gj3k1"]
 resource_name = "Depause"
@@ -122,8 +123,13 @@ color = Color(0, 0, 0, 1)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_wbtrt")
-volume_db = 18.802
 autoplay = true
+
+[node name="Music2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_8ya23")
+
+[node name="Music3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_wbtrt")
 
 [connection signal="dead" from="Main Scene/Player" to="Main Scene" method="_on_player_dead"]
 [connection signal="doorencoutered" from="Main Scene/Player" to="Main Scene" method="_on_player_doorencoutered"]

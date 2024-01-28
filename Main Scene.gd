@@ -19,7 +19,7 @@ func _ready():
 	packedendscene = preload("res://Final Screen.tscn")
 	loadNextLevel(160,50)
 	#await get_tree().create_timer(1.5).timeout
-	await  $"../Faders".fadein(1.5)
+	#await  $"../Faders".fadein(1.5)
 	pass # Replace with function body.
 
 	#cameraXMin = $Camera.zoom.x*screensize.x #screensize.x*$Camera.zoom.x/2
@@ -95,10 +95,12 @@ func loadNextLevel(width:int, height:int) :
 	
 
 func _on_player_doorencoutered():
-	if levelstotop > 0 :
+	if levelstotop > 1 :
 		loadNextLevel(randi_range(150,300), randi_range(150,300))
 		levelstotop -= 1
+		print("nana")
 	else :
+		print("Ok")
 		get_tree().change_scene_to_packed(packedendscene)
 	pass # Replace with function body.
 
