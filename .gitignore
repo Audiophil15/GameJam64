@@ -1,5 +1,10 @@
 # Godot 4+ specific ignores
 .godot/
+Executables
 
-**/*.import
+**/**.import
 **/*.swp
+**/*.gif
+**/*.psd
+**/*.PSD
+**/__MACOSX

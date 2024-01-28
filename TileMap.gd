@@ -21,7 +21,7 @@ var table = []
 var bgtable = []
 	
 func _ready():
-	#seed(1)
+	seed(1) #debug
 	#initialize(80,50)
 	pass
 
@@ -55,7 +55,7 @@ func generateTileTable(sizex, sizey) :
 			bgtable[i].append(-1)
 
 	table[0][cellpos.y] = 0
-	while cellpos.x < sizex :
+	while cellpos.x < sizex-5 :
 		x = weightedChoice(space, P[x])
 		if  x == 0 :
 			table[cellpos.x][cellpos.y] = 0
@@ -76,6 +76,9 @@ func generateTileTable(sizex, sizey) :
 			cellpos.x += xshift
 			#if xshift > 1 :
 			cellpos.y += randi_range(-1,1)
+	for i in range(5) :
+		table[cellpos.x][cellpos.y] = 0
+		cellpos.x += 1
 
 	for i in range(sizex) :
 		for j in range(sizey) :
@@ -91,6 +94,11 @@ func generateTileTable(sizex, sizey) :
 				table[i][j] = 1
 				for k in range(j+1, sizey) :
 					table[i][k] = 5
+		
+	for j in range(sizey) :
+		if table[sizex-1][j] != -1 :
+			table[sizex-3][j-4] = 50
+		
 					
 	for i in range(sizex) :
 		var bg = 11 # 11 clear, 12 dark
@@ -120,7 +128,7 @@ func setExtremeHeights(table) :
 	
 	for j in range(lines) :
 		#print(table[0][j])
-		if table[0][j] == 0 :
+		if table[3][j] != -1 :
 			initialheight = $PlatformsTiles.map_to_local(Vector2i(0, j))
 
 func tableToTiles(table) :
@@ -145,6 +153,8 @@ func tableToTiles(table) :
 					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(4, 1))
 				42 :
 					$PlatformsTiles.set_cell(0, Vector2i(i, j), 0, Vector2i(3, 1))
+				50 :
+					$Door.set_cell(0, Vector2i(i, j), 0, Vector2i(55, 0))
 				_ :
 					pass
 			match bgtable[i][j] :

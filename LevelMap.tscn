@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://h3yo8oikivl4"]
+[gd_scene load_steps=13 format=3 uid="uid://h3yo8oikivl4"]
 
 [ext_resource type="Texture2D" uid="uid://ctsyh5clta1i2" path="res://src/Scenes/Space Cave Tileset.png" id="1_6fgcw"]
 [ext_resource type="Script" path="res://TileMap.gd" id="2_a45jw"]
+[ext_resource type="Texture2D" uid="uid://cxnjpklhx4bki" path="res://src/Scenes/mainlevbuild.png" id="4_iqfaa"]
 [ext_resource type="Texture2D" uid="uid://bebmahdo8cmot" path="res://src/Scenes/Viele_Stein.png" id="4_v72pm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uc58q"]
@@ -1077,8 +1078,22 @@ texture = ExtResource("1_6fgcw")
 3:8/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSet" id="TileSet_ab7kf"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 17
+physics_layer_0/collision_mask = 17
 sources/0 = SubResource("TileSetAtlasSource_a0irr")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhunx"]
+texture = ExtResource("4_iqfaa")
+55:0/size_in_atlas = Vector2i(4, 7)
+55:0/0 = 0
+55:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+55:0/0/physics_layer_0/angular_velocity = 0.0
+55:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 56, -32, 56)
+
+[sub_resource type="TileSet" id="TileSet_wrt8r"]
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_rhunx")
 
 [node name="LevelMap" type="Node2D"]
 script = ExtResource("2_a45jw")
@@ -1089,4 +1104,8 @@ format = 2
 
 [node name="PlatformsTiles" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ab7kf")
+format = 2
+
+[node name="Door" type="TileMap" parent="." groups=["Door"]]
+tile_set = SubResource("TileSet_wrt8r")
 format = 2

@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://yeawhwc2cqcb"]
+
+[ext_resource type="Script" path="res://Main Menu.gd" id="1_4xuqc"]
+[ext_resource type="Texture2D" uid="uid://0s8limg5r3o" path="res://src/Scenes/Mountains and Snow/Cave 4.png" id="2_dw8eu"]
+[ext_resource type="PackedScene" uid="uid://c8kcc4xlu8daj" path="res://faders.tscn" id="2_t4f7u"]
+[ext_resource type="FontFile" uid="uid://dex1bdxkjvm5m" path="res://src/Fonts/Ruritania.ttf" id="3_we8wx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qpug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yrcyc"]
+bg_color = Color(0.164706, 0.345098, 0.388235, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 35
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tqemh"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4xuqc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dw8eu")
+expand_mode = 5
+
+[node name="Faders" parent="." instance=ExtResource("2_t4f7u")]
+layout_mode = 1
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 252.0
+offset_top = 160.0
+offset_right = 409.0
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_we8wx")
+theme_override_font_sizes/font_size = 66
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6qpug")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yrcyc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrcyc")
+text = "Quit"
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -407.0
+offset_top = 160.0
+offset_right = -232.0
+offset_bottom = 242.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_we8wx")
+theme_override_font_sizes/font_size = 66
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tqemh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yrcyc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yrcyc")
+text = "Play"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -277.5
+offset_bottom = -114.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_we8wx")
+theme_override_font_sizes/font_size = 146
+text = "Title"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
